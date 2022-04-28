@@ -3,9 +3,9 @@ import api from "../utils/Api"
 import Card from './Card'
 
 export default function Main (props) {
-    const [userName, setUserName] = useState("Жак-Жак")
-    const [userDiscription, setUserDiscription] = useState("Буль-Буль")
-    const [userAvatar, setUserAvatar] = useState("#")
+    const [userName, setUserName] = useState("")
+    const [userDiscription, setUserDiscription] = useState("")
+    const [userAvatar, setUserAvatar] = useState("")
     const [cards, setCards] = useState([])
 
     React.useEffect(() => {

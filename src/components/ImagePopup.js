@@ -1,6 +1,6 @@
 export default function ImagePopup (props) {
     return(
-        <section className= {(props.isOpen ? `popup popup_type_${props.name} popup_active` : `popup popup_type_${props.name}`)}>
+        <section className={`popup popup_type_${props.name} ${props.isOpen && 'popup_active'}`}>
             <div className="popup__overlay" onClick={props.onClose}></div>
             <button className="popup__close-btn popup__close-btn_margin-left   popup__close-btn_type_pictures" type="button"
                     aria-label="Close" onClick={props.onClose}></button>
