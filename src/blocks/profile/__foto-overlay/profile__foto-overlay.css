@@ -1,5 +1,5 @@
 .profile__foto-overlay {
-    position: fixed;
+    position: absolute;
     height: 120px;
     width: 120px;
 }
