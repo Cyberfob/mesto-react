@@ -6,7 +6,7 @@ export default function PopupWithForm (props) {
             aria-label="confirmation" onClick={props.onClose}></button>
         <div className="modal"> 
             <h2 className="modal__title">{props.title}</h2>
-            <form className="modal__form " action="submit" name={props.name}>
+            <form className="modal__form " action="submit"  name={props.name}>
                 {props.children}
             </form>
         </div>

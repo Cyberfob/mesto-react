@@ -52,18 +52,9 @@ class Api {
     }
 
 
-    setLike(_id) {
+    setLike(_id, state) {
         const request = {
-            method: "PUT",
-            headers: this._headers,
-        } 
-        return fetch(`${this._url}/cards/${_id}/likes`,request)
-        .then(this._checkResponse)
-    }
-
-    deleteLike(_id) {
-        const request = {
-            method: "DELETE",
+            method: `${state ? 'PUT' : 'DELETE'}`,
             headers: this._headers,
         } 
         return fetch(`${this._url}/cards/${_id}/likes`,request)
@@ -71,18 +62,18 @@ class Api {
     }
 
     removeCard(_id) {
-        {
+        
             const request = {
                 method: "DELETE",
                 headers: this._headers,
             } 
             return fetch(`${this._url}/cards/${_id}`,request)
             .then(this._checkResponse)
-        }
+        
     }
 
     setProfileAvatar(link) {
-        {
+        
             const request = {
                 method: "PATCH",
                 headers: this._headers,
@@ -92,7 +83,7 @@ class Api {
             } 
             return fetch(`${this._url}/users/me/avatar`,request)
             .then(this._checkResponse)
-            }
+            
     }
 }
 

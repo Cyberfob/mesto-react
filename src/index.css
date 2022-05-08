@@ -37,6 +37,7 @@
 @import url(../src/blocks/card/__trashcan/card__trashcan-btn.css);
 @import url(../src//blocks/card/__like-counter/card__like-counter.css);
 @import url(../src/blocks/card/__like-container/card__like-container.css);
+@import url(../src/blocks/card/__trashcan/card__trashcan-btn_hidden.css);
 
 /* Popup */
 @import url(../src/blocks/popup/popup.css);
