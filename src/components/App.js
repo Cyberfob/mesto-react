@@ -31,12 +31,30 @@ function App() {
 
     function handleDeleteCard (card) {
         api.removeCard(card._id)
-        .then((newCard) => {
-        setCards((state) => {return state.filter((c) => c._id === card._id ? newCard : c)});
-        })
-        .catch(err=> {console.log(err)})
-        .finally(()=> {closeAllPopups()})
-    }
+            .then((newCard) => {
+              setCards((state) => {
+                state.filter((c) => c._id !== card._id)
+              });
+            })
+            .catch(err => {
+              console.log(err)
+            })
+      }
+
+    // function handleDeleteCard (card) {
+        
+    //     api.removeCard(card._id)
+    //     .then((deletedCard) => {
+    //         console.log(deletedCard)
+    //     setCards((state) => { state.filter((c) => c._id === card._id )});
+    //     })
+        
+    //     // api.removeCard(card._id)
+    //     // .then((newCard) => {
+    //     // setCards((state) => { state.filter((c) => c._id !== card._id ? newCard : c)});
+    //     // })
+    //     // .catch(err=> {console.log(err)})
+    // }
 
     function handleCardLike (card) {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -52,7 +70,6 @@ function App() {
         .then(response => {
             setCurrentUser(response)
         })
-       // .finally(res=> {console.log(currentUser)})
         .catch(err => {console.log(`Ошибка при запросе данных пользователя:\n ${err}`)})
     },[])
 
@@ -82,34 +99,32 @@ function App() {
     }
 
     function handleUpdateUser ({name,about}) {
-        
         api.setUserInfo({name,about})
         .then(res => {
             currentUser.name = res.name
             currentUser.about = res.about
+            closeAllPopups()
         })
         .catch(err=> {console.log(err)})
-        .finally(()=> {closeAllPopups()})
     }
 
     function handleUpdateAvatar (link) {
         
         api.setProfileAvatar(link)
         .then(res => {
-            console.log(res.avatar)
             currentUser.avatar = res.avatar
+            closeAllPopups()
         })
         .catch(err=> {console.log(err)})
-        .finally(()=> {closeAllPopups()})
     }
 
     function handleAddPlace ({name,link}) {
         api.addCard({name,link})
         .then(newCards=> {
             setCards([newCards, ...cards])
+            closeAllPopups()
         })
         .catch(err=> {console.log(err)})
-        .finally(()=> {closeAllPopups()})
     }
 
 return (
@@ -119,35 +134,20 @@ return (
             <Header/>
 
             {/* Попап Профиля */}
-            <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}></EditProfilePopup>
+            <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonName = 'Сохранить'></EditProfilePopup>
 
             {/* Попап Аватара */}
-            <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups}></EditAvatarPopup>
+            <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups} buttonName = 'Сохранить'></EditAvatarPopup>
 
             {/* Попап Новое место */}
-            <AddPlacePopup onAddPlace={handleAddPlace} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}></AddPlacePopup>
+            <AddPlacePopup onAddPlace={handleAddPlace} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonName = 'Создать'></AddPlacePopup>
 
-            {/* <PopupWithForm name="add" title="Новое место" isOpen = {isAddPlacePopupOpen} onClose = {closeAllPopups}>
-                <fieldset className="modal__fieldset">
-                        <label className="modal__lable">
-                            <input required className="modal__input modal__input_type_title" id="titleInput" name="name"
-                                placeholder="Название" type="text" minLength="2" maxLength="30" defaultValue="" autoComplete="off"/>
-                            <span className="modal__input-error" id="titleInputError"></span>
-                        </label>
-                        <label className="modal__lable">
-                            <input required className="modal__input modal__input_type_link" id="linkInput" name="link"
-                                placeholder="Ссылка на картинку" type="url" defaultValue="" autoComplete="off"/>
-                            <span className="modal__input-error" id="linkInputError"></span>
-                        </label>
-                        <button className="modal__submit" id="addButton" type="submit" value="Сохранить">Создать</button>
-                    </fieldset>
-            </PopupWithForm> */}
+            {/* Попап просмотра изображения */}
             <ImagePopup name="pictures" card = {selectedCard} isOpen = {isImagePopupOpen} onClose = {closeAllPopups}/>
             
             <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} 
                     onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}
                     cards = {cards} onCardLike = {handleCardLike} onCardDelete = {handleDeleteCard}/>
-
             <Footer/>
         </div>
     </div>

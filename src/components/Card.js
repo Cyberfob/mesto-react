@@ -9,8 +9,6 @@ export default function Card (props) {
     const isLiked = props.card.likes.some(user => user._id === userData._id)
     const cardLikeButtonState = `card__like ${isLiked && 'card__like_active'}`
 
-    
-
     function handleLikeClick (card) {
         props.onCardLike(card)
     }

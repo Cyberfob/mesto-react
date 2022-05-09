@@ -5,8 +5,8 @@ import PopupWithForm from './PopupWithForm';
 export default function EditProfilePopup (props) {
     const userData = React.useContext(UserDataContext)
 
-    const [nameValue, setNameValue] = React.useState(userData.name);
-    const [aboutValue, setAboutValue] = React.useState(userData.about);
+    const [nameValue, setNameValue] = React.useState('');
+    const [aboutValue, setAboutValue] = React.useState('');
 
     function handleChangeName (e) {
         setNameValue(e.target.value)
@@ -19,11 +19,10 @@ export default function EditProfilePopup (props) {
     React.useEffect(()=> {
         setNameValue(userData.name)
         setAboutValue(userData.about)
-    },[userData])
+    },[userData,props.isOpen])
 
     function handleSubmit(e) {
         e.preventDefault();
-        // Передаём значения управляемых компонентов во внешний обработчик
         props.onUpdateUser({
         name: nameValue,
         about: aboutValue,
@@ -33,23 +32,21 @@ export default function EditProfilePopup (props) {
 
 return(
 <PopupWithForm name="profile" title="Редактировать профиль" isOpen = {props.isOpen} 
-                onClose = {props.onClose} OnSubmit={handleSubmit} >
+                onClose = {props.onClose} onSubmit={handleSubmit} buttonName = {props.buttonName} >
 
 <fieldset className="modal__fieldset">
         <label className="modal__lable">
             <input autoComplete="off" required className="modal__input modal__input_type_name" id="nameInput"
-                name="name" minLength="2" maxLength="40" placeholder="Введите ваше имя" type="text" defaultValue={userData.name}
+                name="name" minLength="2" maxLength="40" placeholder="Введите ваше имя" type="text" value= {nameValue} //{nameValue}
                 onChange={handleChangeName}/>
             <span className="modal__input-error" id="nameInputError"></span>
         </label>
         <label className="modal__lable">
             <input required className="modal__input modal__input_type_about" id="aboutInput" minLength="2"
                 name="about" maxLength="200" placeholder="Введите информацию о себе" autoComplete="off"
-                type="text" defaultValue={userData.about} onChange={handleChangeAbout}/>
+                type="text" value= {aboutValue} onChange={handleChangeAbout}/>
             <span className="modal__input-error" id="aboutInputError"></span>
         </label>
-        <button className="modal__submit" id="profileSubmitBtn" type="submit" onClick={handleSubmit}
-            value="Сохранить">Сохранить</button>
     </fieldset>
 </PopupWithForm>
 )}
