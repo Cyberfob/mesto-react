@@ -29,32 +29,16 @@ function App() {
         
     },[])
 
+
     function handleDeleteCard (card) {
         api.removeCard(card._id)
-            .then((newCard) => {
-              setCards((state) => {
-                state.filter((c) => c._id !== card._id)
-              });
+            .then(() => {
+                setCards(() => cards.filter((c) => c._id !== card._id));
             })
             .catch(err => {
-              console.log(err)
+                console.log(err)
             })
-      }
-
-    // function handleDeleteCard (card) {
-        
-    //     api.removeCard(card._id)
-    //     .then((deletedCard) => {
-    //         console.log(deletedCard)
-    //     setCards((state) => { state.filter((c) => c._id === card._id )});
-    //     })
-        
-    //     // api.removeCard(card._id)
-    //     // .then((newCard) => {
-    //     // setCards((state) => { state.filter((c) => c._id !== card._id ? newCard : c)});
-    //     // })
-    //     // .catch(err=> {console.log(err)})
-    // }
+        }
 
     function handleCardLike (card) {
         const isLiked = card.likes.some(i => i._id === currentUser._id);

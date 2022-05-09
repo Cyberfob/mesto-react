@@ -29,7 +29,7 @@ export default function Main (props) {
         {props.cards.map(item=> {
             return (
                 <Card key={item._id} onCardClick = {props.onCardClick} card={item} 
-                        onCardDelete = {()=>props.onCardDelete(item)} onCardLike={()=>props.onCardLike(item)} />
+                        onCardDelete = {()=>{props.onCardDelete(item)}} onCardLike={()=>props.onCardLike(item)} />
                 )
         })}
         </section>

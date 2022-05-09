@@ -37,14 +37,14 @@ return(
 <fieldset className="modal__fieldset">
         <label className="modal__lable">
             <input autoComplete="off" required className="modal__input modal__input_type_name" id="nameInput"
-                name="name" minLength="2" maxLength="40" placeholder="Введите ваше имя" type="text" value= {nameValue} //{nameValue}
+                name="name" minLength="2" maxLength="40" placeholder="Введите ваше имя" type="text" value= {nameValue || ''} //{nameValue}
                 onChange={handleChangeName}/>
             <span className="modal__input-error" id="nameInputError"></span>
         </label>
         <label className="modal__lable">
             <input required className="modal__input modal__input_type_about" id="aboutInput" minLength="2"
                 name="about" maxLength="200" placeholder="Введите информацию о себе" autoComplete="off"
-                type="text" value= {aboutValue} onChange={handleChangeAbout}/>
+                type="text" value= {aboutValue || ''} onChange={handleChangeAbout}/>
             <span className="modal__input-error" id="aboutInputError"></span>
         </label>
     </fieldset>
