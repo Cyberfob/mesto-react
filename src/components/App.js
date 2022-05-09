@@ -113,7 +113,7 @@ function App() {
 
 return (
     <UserDataContext.Provider value = {currentUser} >
-    <div className="App">
+    <div className="app" >
         <div className="page">
             <Header/>
 
